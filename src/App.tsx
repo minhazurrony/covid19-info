@@ -8,6 +8,7 @@ import { CountrywiseSummaryCard } from './components/CountrywiseSummaryCard';
 import { GlobalConfirmed } from './components/GlobalConfirmed';
 import { GlobalDeaths } from './components/GlobalDeaths';
 import { GlobalRecovered } from './components/GlobalRecovered';
+import { SingleCountrySummary } from './components/SingleCountrySummary';
 
 const { Content } = Layout;
 
@@ -15,17 +16,22 @@ export const App = () => {
   const [data, setData] = useState<any>({});
   const [countries, setCountries] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [choosenCountry, setChoosenCountry] = useState('');
+  const [filteredCountryInfo, setFilteredCountryInfo] = useState([]);
+  const [showSingleCountrySummary, setShowSingleCountrySummary] = useState(
+    false,
+  );
 
   useEffect(() => {
     const fetchCovidData = async () => {
-      const url = `https://api.covid19api.com/summary`;
+      const url = `https://thingproxy.freeboard.io/fetch/https://api.covid19api.com/summary`;
       setLoading(true);
       await axios.get(url).then((res) => setData(res.data));
       setLoading(false);
     };
 
     const fetchCountry = async () => {
-      const url = `https://api.covid19api.com/countries`;
+      const url = `https://thingproxy.freeboard.io/fetch/https://api.covid19api.com/countries`;
       await axios.get(url).then((res) => setCountries(res.data));
     };
 
@@ -38,6 +44,18 @@ export const App = () => {
   }, []);
 
   const { Global, Countries, Date } = data;
+
+  const handleFilterCountrySummary = () => {
+    if (Countries !== undefined) {
+      Countries.filter((item: any) =>
+        item.Country === choosenCountry ? setFilteredCountryInfo(item) : null,
+      );
+    }
+  };
+
+  const resetFilterCountryInfo = () => {
+    setFilteredCountryInfo([]);
+  };
 
   return (
     <Content style={{ padding: 40 }}>
@@ -83,12 +101,26 @@ export const App = () => {
 
       <Divider>Countrywise Summary</Divider>
       <div style={{ margin: 30, display: 'flex', justifyContent: 'center' }}>
-        <CountrySelect countryData={countries} />
+        <CountrySelect
+          countryData={countries}
+          handleChoosenCountry={(arg) => setChoosenCountry(arg)}
+          handleChange={() => handleFilterCountrySummary()}
+          resetFilteredCountry={resetFilterCountryInfo}
+          handleShowSingleCountrySummary={(arg: any) =>
+            setShowSingleCountrySummary(arg)
+          }
+        />
       </div>
 
-      <CountrywiseSummaryCard
-        countryWiseData={Countries === undefined ? null : Countries}
-      />
+      {showSingleCountrySummary ? (
+        <SingleCountrySummary
+          filteredCountryData={filteredCountryInfo ? filteredCountryInfo : null}
+        />
+      ) : (
+        <CountrywiseSummaryCard
+          countryWiseData={Countries === undefined ? null : Countries}
+        />
+      )}
     </Content>
   );
 };

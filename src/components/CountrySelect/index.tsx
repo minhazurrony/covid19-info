@@ -1,13 +1,23 @@
-import { Select } from 'antd';
+import { Button, Select } from 'antd';
 import React from 'react';
 
 const { Option } = Select;
 
 interface CountrySelectProps {
   countryData: Array<any>;
+  handleChoosenCountry: (arg: any) => void;
+  handleChange: () => void;
+  resetFilteredCountry: () => void;
+  handleShowSingleCountrySummary: (arg: any) => void;
 }
 
-export const CountrySelect = ({ countryData }: CountrySelectProps) => {
+export const CountrySelect = ({
+  countryData,
+  handleChoosenCountry,
+  handleChange,
+  resetFilteredCountry,
+  handleShowSingleCountrySummary,
+}: CountrySelectProps) => {
   //sort country array of object by letter
   const compare = (a: any, b: any) => {
     const countryA = a.Country;
@@ -22,26 +32,40 @@ export const CountrySelect = ({ countryData }: CountrySelectProps) => {
     return comparison;
   };
 
-  const handleSelectValueChange = (value: any) => {
-    console.log(value);
-  };
-
   return (
-    <Select
-      showSearch
-      style={{ width: 500 }}
-      placeholder="Choose country"
-      // optionFilterProp="children"
-      allowClear={true}
-      onChange={handleSelectValueChange}
-    >
-      {countryData.sort(compare).map((item) => {
-        return (
-          <Option key={item.Slug} value={item.Country}>
-            {item.Country}
-          </Option>
-        );
-      })}
-    </Select>
+    <>
+      <Select
+        showSearch
+        style={{ width: 300 }}
+        allowClear={true}
+        placeholder="Choose country"
+        optionFilterProp="value"
+        onChange={(value: any) => {
+          handleChoosenCountry(value);
+        }}
+        onClear={() => {
+          handleChoosenCountry('');
+          resetFilteredCountry();
+          handleShowSingleCountrySummary(false);
+        }}
+      >
+        {countryData.sort(compare).map((item) => {
+          return (
+            <Option key={item.Slug} value={item.Country}>
+              {item.Country}
+            </Option>
+          );
+        })}
+      </Select>
+      <Button
+        type="primary"
+        onClick={() => {
+          handleChange();
+          handleShowSingleCountrySummary(true);
+        }}
+      >
+        Find Now!
+      </Button>
+    </>
   );
 };
