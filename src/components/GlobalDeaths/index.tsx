@@ -23,8 +23,8 @@ export const GlobalDeaths = ({
       bordered={false}
       className="global-total-deaths-card"
     >
-      <CovidData title="Total Recovered:" value={totalDeathsValue} />
-      <CovidData title="New Recovered:" value={newDeathsValue} />
+      <CovidData title="Total Deaths:" value={totalDeathsValue} />
+      <CovidData title="New Deaths:" value={newDeathsValue} />
       <LastUpdate date={lastUpdate} />
     </Card>
   );
