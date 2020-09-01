@@ -1,0 +1,19 @@
+.countrywise-summary-card {
+  text-align: center;
+}
+
+.countrywise-summary-card p {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: grey;
+}
+
+.countrywise-summary-card .confirmed {
+  color: #ed910d;
+}
+.countrywise-summary-card .recovered {
+  color: #4cb9c3;
+}
+.countrywise-summary-card .deaths {
+  color: #e93928;
+}
