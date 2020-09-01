@@ -1,9 +1,10 @@
 import { Col, Divider, Layout, Row } from 'antd';
 import 'antd/dist/antd.css';
 import axios from 'axios';
-import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { CountrySelect } from './components/CountrySelect';
+import { CountrywiseSummaryCard } from './components/CountrywiseSummaryCard';
 import { GlobalConfirmed } from './components/GlobalConfirmed';
 import { GlobalDeaths } from './components/GlobalDeaths';
 import { GlobalRecovered } from './components/GlobalRecovered';
@@ -12,24 +13,32 @@ const { Content } = Layout;
 
 export const App = () => {
   const [data, setData] = useState<any>({});
+  const [countries, setCountries] = useState<any>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCovidData = async () => {
       const url = `https://api.covid19api.com/summary`;
       setLoading(true);
       await axios.get(url).then((res) => setData(res.data));
       setLoading(false);
     };
+
+    const fetchCountry = async () => {
+      const url = `https://api.covid19api.com/countries`;
+      await axios.get(url).then((res) => setCountries(res.data));
+    };
+
     try {
-      fetchData();
+      fetchCovidData();
+      fetchCountry();
     } catch (error) {
       console.log(error);
     }
   }, []);
 
-  const { Global, Date } = data;
-  console.log(Global);
+  const { Global, Countries, Date } = data;
+
   return (
     <Content style={{ padding: 40 }}>
       <Divider>Global Summary</Divider>
@@ -43,11 +52,7 @@ export const App = () => {
             newConfirmedValue={
               Global === undefined ? 0 : Number(Global.NewConfirmed)
             }
-            lastUpdate={
-              data === undefined
-                ? 'not found'
-                : dayjs(Date).format('MMMM D, YYYY h:mma')
-            }
+            lastUpdate={data === undefined ? 'not found' : Date}
           />
         </Col>
 
@@ -60,11 +65,7 @@ export const App = () => {
             newRecoveredValue={
               Global === undefined ? 0 : Number(Global.NewRecovered)
             }
-            lastUpdate={
-              data === undefined
-                ? 'not found'
-                : dayjs(Date).format('MMMM D, YYYY h:mma')
-            }
+            lastUpdate={data === undefined ? 'not found' : Date}
           />
         </Col>
 
@@ -75,14 +76,19 @@ export const App = () => {
               Global === undefined ? 0 : Number(Global.TotalDeaths)
             }
             newDeathsValue={Global === undefined ? 0 : Number(Global.NewDeaths)}
-            lastUpdate={
-              data === undefined
-                ? 'not found'
-                : dayjs(Date).format('MMMM D, YYYY h:mma')
-            }
+            lastUpdate={data === undefined ? 'not found' : Date}
           />
         </Col>
       </Row>
+
+      <Divider>Countrywise Summary</Divider>
+      <div style={{ margin: 30, display: 'flex', justifyContent: 'center' }}>
+        <CountrySelect countryData={countries} />
+      </div>
+
+      <CountrywiseSummaryCard
+        countryWiseData={Countries === undefined ? null : Countries}
+      />
     </Content>
   );
 };
