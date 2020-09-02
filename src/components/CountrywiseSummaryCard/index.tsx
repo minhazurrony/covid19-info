@@ -21,6 +21,8 @@ export const CountrywiseSummaryCard = ({
     );
   }
 
+  console.log('nothing');
+
   // Get current Country
   const indexOfLastCountry = currentPage * itemsPerPage;
   const indexOfFirstCountry = indexOfLastCountry - itemsPerPage;
