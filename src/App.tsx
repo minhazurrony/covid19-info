@@ -109,6 +109,7 @@ export const App = () => {
           handleShowSingleCountrySummary={(arg: any) =>
             setShowSingleCountrySummary(arg)
           }
+          isDisabled={!choosenCountry ? true : false}
         />
       </div>
 

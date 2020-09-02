@@ -9,6 +9,7 @@ interface CountrySelectProps {
   handleChange: () => void;
   resetFilteredCountry: () => void;
   handleShowSingleCountrySummary: (arg: any) => void;
+  isDisabled: boolean;
 }
 
 export const CountrySelect = ({
@@ -17,6 +18,7 @@ export const CountrySelect = ({
   handleChange,
   resetFilteredCountry,
   handleShowSingleCountrySummary,
+  isDisabled,
 }: CountrySelectProps) => {
   //sort country array of object by letter
   const compare = (a: any, b: any) => {
@@ -36,7 +38,7 @@ export const CountrySelect = ({
     <>
       <Select
         showSearch
-        style={{ width: 300 }}
+        style={{ width: 200 }}
         allowClear={true}
         placeholder="Choose country"
         optionFilterProp="value"
@@ -59,6 +61,8 @@ export const CountrySelect = ({
       </Select>
       <Button
         type="primary"
+        disabled={isDisabled}
+        style={{ marginLeft: 10 }}
         onClick={() => {
           handleChange();
           handleShowSingleCountrySummary(true);
