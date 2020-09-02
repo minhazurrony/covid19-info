@@ -1,4 +1,4 @@
-import { Card, Col, Pagination, Row } from 'antd';
+import { Card, Col, Pagination, Row, Spin } from 'antd';
 import React, { useState } from 'react';
 import { LastUpdate } from '../LastUpdate';
 import './countryWiseSummary.css';
@@ -14,7 +14,11 @@ export const CountrywiseSummaryCard = ({
   const [itemsPerPage] = useState(8);
 
   if (!countryWiseData) {
-    return null;
+    return (
+      <div className="loader-container">
+        <Spin tip="Loading..." />
+      </div>
+    );
   }
 
   // Get current Country

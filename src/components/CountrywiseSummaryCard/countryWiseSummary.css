@@ -1,3 +1,11 @@
+.loader-container {
+  width: 100vw;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .countrywise-summary-card {
   text-align: center;
 }
