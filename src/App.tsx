@@ -57,6 +57,8 @@ export const App = () => {
     setFilteredCountryInfo([]);
   };
 
+  console.log('hello');
+
   return (
     <Content className="main-container">
       <Divider>Global Summary</Divider>
