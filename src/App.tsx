@@ -24,14 +24,14 @@ export const App = () => {
 
   useEffect(() => {
     const fetchCovidData = async () => {
-      const url = `https://thingproxy.freeboard.io/fetch/https://api.covid19api.com/summary`;
+      const url = `https://api.covid19api.com/summary`;
       setLoading(true);
       await axios.get(url).then((res) => setData(res.data));
       setLoading(false);
     };
 
     const fetchCountry = async () => {
-      const url = `https://thingproxy.freeboard.io/fetch/https://api.covid19api.com/countries`;
+      const url = `https://api.covid19api.com/countries`;
       await axios.get(url).then((res) => setCountries(res.data));
     };
 
