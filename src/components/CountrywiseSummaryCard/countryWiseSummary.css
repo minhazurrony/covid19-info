@@ -8,6 +8,12 @@
 
 .countrywise-summary-card {
   text-align: center;
+  width: 100%;
+}
+
+.country-column {
+  display: flex;
+  justify-content: center;
 }
 
 .countrywise-summary-card p {
@@ -24,4 +30,8 @@
 }
 .countrywise-summary-card .deaths {
   color: #e93928;
+}
+
+.styled-pagination li {
+  margin-bottom: 5px;
 }
