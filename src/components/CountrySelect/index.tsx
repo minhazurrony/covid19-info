@@ -1,4 +1,4 @@
-import { Button, Select } from 'antd';
+import { Button, Select, Space } from 'antd';
 import React from 'react';
 
 const { Option } = Select;
@@ -35,7 +35,7 @@ export const CountrySelect = ({
   };
 
   return (
-    <>
+    <Space>
       <Select
         showSearch
         style={{ width: 200 }}
@@ -62,7 +62,6 @@ export const CountrySelect = ({
       <Button
         type="primary"
         disabled={isDisabled}
-        style={{ marginLeft: 10 }}
         onClick={() => {
           handleChange();
           handleShowSingleCountrySummary(true);
@@ -70,6 +69,6 @@ export const CountrySelect = ({
       >
         Find Now!
       </Button>
-    </>
+    </Space>
   );
 };

@@ -28,7 +28,12 @@ export const CountrywiseSummaryCard = ({
     <>
       <Row gutter={[16, 16]}>
         {currentCountry.map((item: any) => (
-          <Col lg={{ span: 6 }} key={item.Slug}>
+          <Col
+            xs={{ span: 24 }}
+            md={{ span: 8 }}
+            lg={{ span: 6 }}
+            key={item.Slug}
+          >
             <Card hoverable={true} className="countrywise-summary-card">
               <h2>{item.Country}</h2>
               <p>

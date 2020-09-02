@@ -58,10 +58,16 @@ export const App = () => {
   };
 
   return (
-    <Content style={{ padding: 40 }}>
+    <Content className="main-container">
       <Divider>Global Summary</Divider>
       <Row gutter={[16, 16]}>
-        <Col lg={{ span: 8 }}>
+        <Col
+          xs={{ span: 24 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+          xl={{ span: 8 }}
+          xxl={{ span: 8 }}
+        >
           <GlobalConfirmed
             isCardLoading={loading}
             totalConfirmedValue={
@@ -74,7 +80,13 @@ export const App = () => {
           />
         </Col>
 
-        <Col lg={{ span: 8 }}>
+        <Col
+          xs={{ span: 24 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+          xl={{ span: 8 }}
+          xxl={{ span: 8 }}
+        >
           <GlobalRecovered
             isCardLoading={loading}
             totalRecoveredValue={
@@ -87,7 +99,13 @@ export const App = () => {
           />
         </Col>
 
-        <Col lg={{ span: 8 }}>
+        <Col
+          xs={{ span: 24 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+          xl={{ span: 8 }}
+          xxl={{ span: 8 }}
+        >
           <GlobalDeaths
             isCardLoading={loading}
             totalDeathsValue={
@@ -99,29 +117,33 @@ export const App = () => {
         </Col>
       </Row>
 
-      <Divider>Countrywise Summary</Divider>
-      <div style={{ margin: 30, display: 'flex', justifyContent: 'center' }}>
-        <CountrySelect
-          countryData={countries}
-          handleChoosenCountry={(arg) => setChoosenCountry(arg)}
-          handleChange={() => handleFilterCountrySummary()}
-          resetFilteredCountry={resetFilterCountryInfo}
-          handleShowSingleCountrySummary={(arg: any) =>
-            setShowSingleCountrySummary(arg)
-          }
-          isDisabled={!choosenCountry ? true : false}
-        />
-      </div>
+      <div className="countrywise-summary-container">
+        <Divider>Countrywise Summary</Divider>
+        <div className="country-select-container">
+          <CountrySelect
+            countryData={countries}
+            handleChoosenCountry={(arg) => setChoosenCountry(arg)}
+            handleChange={() => handleFilterCountrySummary()}
+            resetFilteredCountry={resetFilterCountryInfo}
+            handleShowSingleCountrySummary={(arg: any) =>
+              setShowSingleCountrySummary(arg)
+            }
+            isDisabled={!choosenCountry ? true : false}
+          />
+        </div>
 
-      {showSingleCountrySummary ? (
-        <SingleCountrySummary
-          filteredCountryData={filteredCountryInfo ? filteredCountryInfo : null}
-        />
-      ) : (
-        <CountrywiseSummaryCard
-          countryWiseData={Countries === undefined ? null : Countries}
-        />
-      )}
+        {showSingleCountrySummary ? (
+          <SingleCountrySummary
+            filteredCountryData={
+              filteredCountryInfo ? filteredCountryInfo : null
+            }
+          />
+        ) : (
+          <CountrywiseSummaryCard
+            countryWiseData={Countries === undefined ? null : Countries}
+          />
+        )}
+      </div>
     </Content>
   );
 };
