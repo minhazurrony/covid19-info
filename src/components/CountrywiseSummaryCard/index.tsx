@@ -37,6 +37,7 @@ export const CountrywiseSummaryCard = ({
             md={{ span: 8 }}
             lg={{ span: 6 }}
             key={item.Slug}
+            style={{ display: 'flex' }}
           >
             <Card hoverable={true} className="countrywise-summary-card">
               <h2>{item.Country}</h2>
