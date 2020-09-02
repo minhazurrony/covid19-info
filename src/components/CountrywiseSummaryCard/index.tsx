@@ -37,7 +37,7 @@ export const CountrywiseSummaryCard = ({
             md={{ span: 8 }}
             lg={{ span: 6 }}
             key={item.Slug}
-            style={{ display: 'flex' }}
+            className="country-column"
           >
             <Card hoverable={true} className="countrywise-summary-card">
               <h2>{item.Country}</h2>
@@ -76,6 +76,7 @@ export const CountrywiseSummaryCard = ({
         total={countryWiseData.length}
         onChange={(page) => setCurrentPage(page)}
         hideOnSinglePage={true}
+        className="styled-pagination"
       />
     </>
   );
