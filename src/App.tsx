@@ -43,8 +43,6 @@ export const App = () => {
     }
   }, []);
 
-  console.log('test');
-
   const { Global, Countries, Date } = data;
 
   const handleFilterCountrySummary = () => {
